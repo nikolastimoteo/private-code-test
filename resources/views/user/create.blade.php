@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Meu Perfil')
+@section('title', 'Cadastro de Usuário')
 
 @section('content_header')
-    <h1>Meu Perfil</h1>
+    <h1>Cadastro de Usuário</h1>
 @stop
 
 @section('content')
@@ -11,16 +11,38 @@
     <div class="col-md-8">
         <div class="box box-black">
             <div class="box-header with-border">
-                <h3 class="box-title">Alteração de Senha</h3>
+                <h3 class="box-title">Dados do Usuário</h3>
             </div>
             <!-- /.box-header -->
-            <form action="{{ route('postChangePassword') }}" method="post" autocomplete="off">
+            <form action="{{ route('usuarios.store') }}" method="post" autocomplete="off">
                 {{ csrf_field() }}
                 <div class="box-body">
+                    <div class="form-group has-feedback {{ $errors->has('name') ? 'has-error' : '' }}">
+                        <label for="name">Nome Completo</label>
+                        <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}"
+                            placeholder="Digite o nome completo do usuário" required>
+                        @if ($errors->has('name'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('name') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                    <!-- /.form-group -->
+                    <div class="form-group has-feedback {{ $errors->has('email') ? 'has-error' : '' }}">
+                        <label for="email">E-mail</label>
+                        <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}"
+                            placeholder="Digite o e-mail do usuário" required>
+                        @if ($errors->has('email'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('email') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                    <!-- /.form-group -->
                     <div class="form-group has-feedback {{ $errors->has('password') ? 'has-error' : '' }}">
-                        <label for="password">Nova Senha</label>
+                        <label for="password">Senha</label>
                         <input type="password" name="password" id="password" class="form-control"
-                               placeholder="Digite a nova senha" required>
+                               placeholder="Digite uma senha para o usuário" required>
                         @if ($errors->has('password'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('password') }}</strong>
@@ -29,9 +51,9 @@
                     </div>
                     <!-- /.form-group -->
                     <div class="form-group has-feedback {{ $errors->has('password_confirmation') ? 'has-error' : '' }}">
-                        <label for="password_confirmation">Confirmação da Nova Senha</label>
+                        <label for="password_confirmation">Confirmação da Senha</label>
                         <input type="password" name="password_confirmation" id="password_confirmation" class="form-control"
-                               placeholder="Confirme a nova senha" required>
+                               placeholder="Confirme a senha" required>
                         @if ($errors->has('password_confirmation'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('password_confirmation') }}</strong>
@@ -44,8 +66,8 @@
                 <div class="box-footer">
                     <div class="row">
                         <div class="col-xs-12">
-                            <a href="{{ route('getHome') }}" class="btn btn-flat btn-danger pull-left" title="Cancelar">Cancelar</a>
-                            <button type="submit" class="btn btn-flat btn-primary pull-right" title="Alterar Senha">Alterar Senha</button>
+                            <a href="{{ route('usuarios.index') }}" class="btn btn-flat btn-danger pull-left" title="Cancelar">Cancelar</a>
+                            <button type="submit" class="btn btn-flat btn-primary pull-right" title="Salvar Usuário">Salvar Usuário</button>
                         </div>
                         <!-- /.col -->
                     </div>

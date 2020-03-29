@@ -53,8 +53,8 @@ class RegisterController extends Controller
         ], $this->messages());
 
         $user = User::create([
-            'name'  => $request->name,
-            'email' => $request->email,
+            'name'      => $request->name,
+            'email'     => $request->email,
             'password'  => bcrypt($request->password),
         ]);
 

@@ -20,6 +20,9 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/dist/css/AdminLTE.min.css') }}">
 
+    <!-- Custom style -->
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+
     @yield('adminlte_css')
 
     <!--[if lt IE 9]>

@@ -133,6 +133,10 @@ return [
             'text' => 'Home',
             'url'  => 'home',
         ],
+        [
+            'text' => 'Usuários',
+            'url'  => 'usuarios',
+        ],
         ['header' => 'Configurações da Conta'],
         [
             'text' => 'Meu Perfil',

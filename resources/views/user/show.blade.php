@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Meu Perfil')
+@section('title', 'Edição de Usuário')
 
 @section('content_header')
-    <h1>Meu Perfil</h1>
+    <h1>Edição de Usuário</h1>
 @stop
 
 @section('content')
@@ -11,17 +11,15 @@
     <div class="col-md-8">
         <div class="box box-black">
             <div class="box-header with-border">
-                <h3 class="box-title">Dados do Meu Perfil</h3>
-                <a href="{{ route('getChangePassword') }}" class="btn btn-flat btn-warning btn-sm pull-right" title="Alterar Senha">Alterar Senha</a>
+                <h3 class="box-title">Dados do Usuário</h3>
             </div>
             <!-- /.box-header -->
-            <form action="{{ route('postProfile') }}" method="post" autocomplete="off">
-                {{ csrf_field() }}
+            <form autocomplete="off">
                 <div class="box-body">
                     <div class="form-group has-feedback {{ $errors->has('name') ? 'has-error' : '' }}">
                         <label for="name">Nome Completo</label>
-                        <input type="text" name="name" id="name" class="form-control" value="{{ old('name', Auth::user()->name) }}"
-                            placeholder="Digite seu nome completo" required>
+                        <input type="text" name="name" id="name" class="form-control" value="{{ $user->name }}"
+                            placeholder="Digite o nome completo do usuário" required readonly>
                         @if ($errors->has('name'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('name') }}</strong>
@@ -31,8 +29,8 @@
                     <!-- /.form-group -->
                     <div class="form-group has-feedback {{ $errors->has('email') ? 'has-error' : '' }}">
                         <label for="email">E-mail</label>
-                        <input type="email" name="email" id="email" class="form-control" value="{{ Auth::user()->email }}"
-                            placeholder="Digite seu e-mail" required readonly>
+                        <input type="email" name="email" id="email" class="form-control" value="{{ $user->email }}"
+                            placeholder="Digite o e-mail do usuário" required readonly>
                         @if ($errors->has('email'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('email') }}</strong>
@@ -45,8 +43,8 @@
                 <div class="box-footer">
                     <div class="row">
                         <div class="col-xs-12">
-                            <a href="{{ route('getHome') }}" class="btn btn-flat btn-default pull-left" title="Voltar">Voltar</a>
-                            <button type="submit" class="btn btn-flat btn-primary pull-right" title="Salvar Alterações">Salvar Alterações</button>
+                            <a href="{{ route('usuarios.index') }}" class="btn btn-flat btn-default pull-left" title="Voltar">Voltar</a>
+                            <a href="{{ route('usuarios.edit', ['id' => $user->id]) }}" class="btn btn-flat btn-warning pull-right" title="Editar Usuário">Editar Usuário</a>
                         </div>
                         <!-- /.col -->
                     </div>

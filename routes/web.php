@@ -14,16 +14,23 @@
 /*Route::get('/', function () {
     return view('welcome');
 });*/
+Route::group(['middleware' => 'guest'], function() {
+    Route::get('/', 'AuthController@getLogin')->name('getLogin');
+    Route::get('login', 'AuthController@getLogin')->name('login');
+    Route::post('login', 'AuthController@postLogin')->name('postLogin');
 
-Route::get('login', 'AuthController@getLogin')->middleware(['guest'])->name('login');
-Route::get('/', 'AuthController@getLogin')->middleware(['guest'])->name('getLogin');
-Route::post('login', 'AuthController@postLogin')->middleware(['guest'])->name('postLogin');
-Route::post('logout', 'AuthController@postLogout')->middleware(['auth'])->name('postLogout');
-Route::get('home', 'HomeController@getHome')->middleware(['auth'])->name('getHome');
-Route::get('registro', 'RegisterController@getRegister')->middleware(['guest'])->name('getRegister');
-Route::post('registro', 'RegisterController@postRegister')->middleware(['guest'])->name('postRegister');
+    Route::get('registro', 'RegisterController@getRegister')->name('getRegister');
+    Route::post('registro', 'RegisterController@postRegister')->name('postRegister');
+});
 
-Route::get('perfil', 'UserProfileController@getProfile')->middleware(['auth'])->name('getProfile');
-Route::post('perfil', 'UserProfileController@postProfile')->middleware(['auth'])->name('postProfile');
-Route::get('perfil/alterarsenha', 'UserProfileController@getChangePassword')->middleware(['auth'])->name('getChangePassword');
-Route::post('perfil/alterarsenha', 'UserProfileController@postChangePassword')->middleware(['auth'])->name('postChangePassword');
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('home', 'HomeController@getHome')->name('getHome');
+    Route::post('logout', 'AuthController@postLogout')->name('postLogout');
+
+    Route::get('perfil', 'UserProfileController@getProfile')->name('getProfile');
+    Route::post('perfil', 'UserProfileController@postProfile')->name('postProfile');
+    Route::get('perfil/alterarsenha', 'UserProfileController@getChangePassword')->name('getChangePassword');
+    Route::post('perfil/alterarsenha', 'UserProfileController@postChangePassword')->name('postChangePassword');
+
+    Route::resource('usuarios', 'UserController');
+});
