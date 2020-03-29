@@ -28,4 +28,26 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    /**
+     * Check is the user is Admin.
+     *
+     * @author Níkolas Timóteo <nikolas@nikolastps.hotmail.com>
+     * @return boolean
+     */
+    public function isAdmin()
+    {
+        return $this->users_id == null;
+    }
+
+    /**
+     * Get all the clients from the user (admin).
+     * 
+     * @author Níkolas Timóteo <nikolas@nikolastps.hotmail.com>
+     * @return Collection<App\Client>
+     */
+    public function clients()
+    {
+        return $this->hasMany('App\Client', 'users_id');
+    }
 }

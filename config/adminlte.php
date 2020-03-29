@@ -137,6 +137,10 @@ return [
             'text' => 'Usuários',
             'url'  => 'usuarios',
         ],
+        [
+            'text' => 'Clientes',
+            'url'  => 'clientes',
+        ],
         ['header' => 'Configurações da Conta'],
         [
             'text' => 'Meu Perfil',

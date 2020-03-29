@@ -27,7 +27,7 @@ class UserController extends Controller
     }
 
     /**
-     * Display a listing of the user.
+     * Display a listing of users.
      *
      * @author Níkolas Timóteo <nikolas@nikolastps.hotmail.com>
      * @return \Illuminate\Http\Response

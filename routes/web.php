@@ -33,4 +33,5 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('perfil/alterarsenha', 'UserProfileController@postChangePassword')->name('postChangePassword');
 
     Route::resource('usuarios', 'UserController');
+    Route::resource('clientes', 'ClientController');
 });
