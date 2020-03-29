@@ -22,3 +22,8 @@ Route::post('logout', 'AuthController@postLogout')->middleware(['auth'])->name('
 Route::get('home', 'HomeController@getHome')->middleware(['auth'])->name('getHome');
 Route::get('registro', 'RegisterController@getRegister')->middleware(['guest'])->name('getRegister');
 Route::post('registro', 'RegisterController@postRegister')->middleware(['guest'])->name('postRegister');
+
+Route::get('perfil', 'UserProfileController@getProfile')->middleware(['auth'])->name('getProfile');
+Route::post('perfil', 'UserProfileController@postProfile')->middleware(['auth'])->name('postProfile');
+Route::get('perfil/alterarsenha', 'UserProfileController@getChangePassword')->middleware(['auth'])->name('getChangePassword');
+Route::post('perfil/alterarsenha', 'UserProfileController@postChangePassword')->middleware(['auth'])->name('postChangePassword');
