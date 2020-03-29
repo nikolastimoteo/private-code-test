@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Clientes')
+@section('title', 'Telefones')
 
 @section('content_header')
-    <h1>Clientes <small>Todos os clientes cadastrados</small></h1>
+    <h1>Telefones <small>Todos os telefones cadastrados</small></h1>
 @stop
 
 @section('content')
@@ -12,11 +12,11 @@
         <div class="box box-black">
             <div class="box-header with-border">
                 <div class="col-xs-12 col-sm-6 col-lg-4">
-                    <a href="{{ route('clientes.create') }}" title="Cadastrar Cliente">                           
+                    <a href="{{ route('telefones.create') }}" title="Cadastrar Telefone">                           
                         <div class="small-box bg-black">
                             <div class="inner">
                                 <h3>Novo</h3>
-                                <p>Cliente</p>
+                                <p>Telefone</p>
                             </div>
                             <div class="icon">
                                 <i class="ion ion-person-add"></i>
@@ -30,24 +30,26 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-xs-12 table table-responsive">
-                        <table id="clients-table" class="table table-bordered table-striped">
+                        <table id="phones-table" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Nome</th>
+                                    <th>Cliente</th>
                                     <th>E-mail</th>
+                                    <th>Número</th>
                                     <th>Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($clients as $client)
+                                @foreach($phones as $phone)
                                     <tr>
-                                        <td style="vertical-align: middle">{{ $client->name }}</td>
-                                        <td style="vertical-align: middle">{{ $client->email }}</td>
+                                        <td style="vertical-align: middle">{{ $phone->client->name }}</td>
+                                        <td style="vertical-align: middle">{{ $phone->client->email }}</td>
+                                        <td style="vertical-align: middle">{{ $phone->number }}</td>
                                         <td>
                                             <div class="btn-group">
-                                                <a href="{{ route('clientes.show', ['id' => $client->id]) }}" type="button" class="btn btn-primary btn-flat" title="Visualizar Cliente"><i class="fa fa-eye"></i></a>
-                                                <a href="{{ route('clientes.edit', ['id' => $client->id]) }}" type="button" class="btn btn-warning btn-flat" title="Editar Cliente"><i class="fa fa-pencil-alt"></i></a>
-                                                <a href="#" onclick="confirmarExclusao({{ $client->id }}, '{{ $client->name }}')" data-toggle="modal" data-target="#modal-exclusao" class="btn btn-danger btn-flat" title="Excluir Cliente">
+                                                <a href="{{ route('telefones.show', ['id' => $phone->id]) }}" type="button" class="btn btn-primary btn-flat" title="Visualizar Telefone"><i class="fa fa-eye"></i></a>
+                                                <a href="{{ route('telefones.edit', ['id' => $phone->id]) }}" type="button" class="btn btn-warning btn-flat" title="Editar Telefone"><i class="fa fa-pencil-alt"></i></a>
+                                                <a href="#" onclick="confirmarExclusao({{ $phone->id }}, '{{ $phone->number }}')" data-toggle="modal" data-target="#modal-exclusao" class="btn btn-danger btn-flat" title="Excluir Telefone">
                                                     <i class="fa fa-trash-alt"></i>
                                                 </a>
                                             </div>
@@ -57,8 +59,9 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th>Nome</th>
+                                    <th>Cliente</th>
                                     <th>E-mail</th>
+                                    <th>Número</th>
                                     <th>Ações</th>
                                 </tr>
                             </tfoot>
@@ -112,19 +115,19 @@
 @section('js')
 <script>
     $(function () {
-        $('#clients-table').DataTable({
+        $('#phones-table').DataTable({
             language: {
                 decimal: ",",
                 processing: "Processando...",
                 search: "Pesquisar:",
                 lengthMenu: "_MENU_ resultados por página",
-                info: "Mostrando de _START_ até _END_ de _TOTAL_ clientes",
-                infoEmpty: "Mostrando 0 até 0 de 0 clientes",
-                infoFiltered: "(Filtrados de _MAX_ clientes)",
+                info: "Mostrando de _START_ até _END_ de _TOTAL_ telefones",
+                infoEmpty: "Mostrando 0 até 0 de 0 telefones",
+                infoFiltered: "(Filtrados de _MAX_ telefones)",
                 infoPostFix: "",
                 loadingRecords: "Carregando...",
-                zeroRecords: "Nenhum cliente encontrado",
-                emptyTable: "Nenhum cliente encontrado",
+                zeroRecords: "Nenhum telefone encontrado",
+                emptyTable: "Nenhum telefone encontrado",
                 paginate: {
                     first: "Primeiro",
                     previous: "Anterior",
@@ -140,10 +143,10 @@
         });
     });
     // Função para preparar o modal de exclusão
-    function confirmarExclusao(id, nome) {
-        $('#form-exclusao').attr('action', '/clientes/'+id);
+    function confirmarExclusao(id, telefone) {
+        $('#form-exclusao').attr('action', '/telefones/'+id);
         $('#form-exclusao').children('.modal-body').children('#form-exclusao-texto').remove();
-        $('#form-exclusao').children('.modal-body').append('<div id="form-exclusao-texto"><h4>Deseja confirmar a exclusão do cliente "<strong>'+nome+'</strong>"?</h4></div>');
+        $('#form-exclusao').children('.modal-body').append('<div id="form-exclusao-texto"><h4>Deseja confirmar a exclusão do telefone "<strong>'+telefone+'</strong>"?</h4></div>');
     }
 </script>
 @stop

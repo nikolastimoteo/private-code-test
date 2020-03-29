@@ -156,6 +156,7 @@ class UserController extends Controller
                     ->first();
         if($user)
             $user->delete();
+            
         return redirect()
             ->route('usuarios.index');
     }

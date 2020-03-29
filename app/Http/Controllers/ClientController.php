@@ -33,12 +33,10 @@ class ClientController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->isAdmin())
-            $clients = Client::where('users_id', Auth::user()->id)
-                ->get();
-        else
-            $clients = Client::where('users_id', Auth::user()->users_id)
-                ->get();
+        $adminId = Auth::user()->isAdmin() ? Auth::user()->id : Auth::user()->users_id;
+
+        $clients = Client::where('users_id', $adminId)
+            ->get();
 
         return view('client.index')
             ->with('clients', $clients);
@@ -166,6 +164,7 @@ class ClientController extends Controller
                     ->first();
         if($client)
             $client->delete();
+            
         return redirect()
             ->route('clientes.index');
     }

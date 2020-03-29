@@ -34,4 +34,5 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::resource('usuarios', 'UserController');
     Route::resource('clientes', 'ClientController');
+    Route::resource('telefones', 'PhoneController');
 });

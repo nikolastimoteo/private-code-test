@@ -141,6 +141,10 @@ return [
             'text' => 'Clientes',
             'url'  => 'clientes',
         ],
+        [
+            'text' => 'Telefones',
+            'url'  => 'telefones',
+        ],
         ['header' => 'Configurações da Conta'],
         [
             'text' => 'Meu Perfil',
