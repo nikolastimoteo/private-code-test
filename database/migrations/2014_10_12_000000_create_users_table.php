@@ -9,28 +9,37 @@ class CreateUsersTable extends Migration
     /**
      * Run the migrations.
      *
+     * @author Níkolas Timóteo <nikolas@nikolastps.hotmail.com>
      * @return void
      */
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('name', 200);
+            $table->string('email', 100)->unique();
+            $table->string('password', 100);
+            $table->bigInteger('users_id')->nullable()->unsigned();
             $table->timestamps();
+        });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreign('users_id')->references('id')->on('users');
         });
     }
 
     /**
      * Reverse the migrations.
      *
+     * @author Níkolas Timóteo <nikolas@nikolastps.hotmail.com>
      * @return void
      */
     public function down()
     {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['users_id']);
+        });
+
         Schema::dropIfExists('users');
     }
 }
