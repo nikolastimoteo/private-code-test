@@ -144,6 +144,11 @@ return [
             'can'  => 'admin',
         ],
         [
+            'text' => 'Grupos',
+            'url'  => 'grupos',
+            'can'  => 'admin',
+        ],
+        [
             'text' => 'Telefones',
             'url'  => 'telefones',
         ],

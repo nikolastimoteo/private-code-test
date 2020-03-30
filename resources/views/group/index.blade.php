@@ -1,57 +1,57 @@
 @extends('adminlte::page')
 
-@section('title', 'Telefones')
+@section('title', 'Grupos')
 
 @section('content_header')
-    <h1>Telefones <small>Todos os telefones cadastrados</small></h1>
+    <h1>Grupos <small>Todos os grupos cadastrados</small></h1>
 @stop
 
 @section('content')
 <div class="row">
     <div class="col-xs-12">
         <div class="box box-black">
-            @can('admin')
             <div class="box-header with-border">
                 <div class="col-xs-12 col-sm-6 col-lg-4">
-                    <a href="{{ route('telefones.create') }}" title="Cadastrar Telefone">                           
+                    <a href="{{ route('grupos.create') }}" title="Cadastrar Grupo">                           
                         <div class="small-box bg-black">
                             <div class="inner">
                                 <h3>Novo</h3>
-                                <p>Telefone</p>
+                                <p>Grupo</p>
                             </div>
                             <div class="icon">
-                                <i class="ion ion-android-phone-portrait"></i>
+                                <i class="ion ion-ios-people"></i>
                             </div>
                             <span class="small-box-footer">Cadastrar <i class="fa fa-arrow-circle-right"></i></span>
                         </div>
                     </a>
                 </div>
             </div>
-            @endcan
             <!-- /.box-header -->
-            <div class="@can('admin') box-body @else box-header with-border @endcan">
+            <div class="box-body">
                 <div class="row">
                     <div class="col-xs-12 table table-responsive">
-                        <table id="phones-table" class="table table-bordered table-striped">
+                        <table id="groups-table" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Cliente</th>
-                                    <th>E-mail</th>
-                                    <th>Número</th>
+                                    <th>Nome</th>
+                                    <th>Permissões</th>
                                     <th>Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($phones as $phone)
+                                @foreach($groups as $group)
                                     <tr>
-                                        <td style="vertical-align: middle">{{ $phone->client->name }}</td>
-                                        <td style="vertical-align: middle">{{ $phone->client->email }}</td>
-                                        <td style="vertical-align: middle">{{ $phone->number }}</td>
+                                        <td style="vertical-align: middle">{{ $group->display_name }}</td>
+                                        <td style="vertical-align: middle">
+                                            @foreach ($group->permissions as $permission)
+                                                <small class="label pull-right bg-black" style="margin-left: 5px;">{{ $permission->display_name }}</small>
+                                            @endforeach
+                                        </td>
                                         <td>
                                             <div class="btn-group">
-                                                <a href="{{ route('telefones.show', ['id' => $phone->id]) }}" type="button" class="btn btn-primary btn-flat" title="Visualizar Telefone"><i class="fa fa-eye"></i></a>
-                                                <a href="{{ route('telefones.edit', ['id' => $phone->id]) }}" type="button" class="btn btn-warning btn-flat" title="Editar Telefone"><i class="fa fa-pencil-alt"></i></a>
-                                                <a href="#" onclick="confirmarExclusao({{ $phone->id }}, '{{ $phone->number }}')" data-toggle="modal" data-target="#modal-exclusao" class="btn btn-danger btn-flat" title="Excluir Telefone">
+                                                <a href="{{ route('grupos.show', ['id' => $group->id]) }}" type="button" class="btn btn-primary btn-flat" title="Visualizar Grupo"><i class="fa fa-eye"></i></a>
+                                                <a href="{{ route('grupos.edit', ['id' => $group->id]) }}" type="button" class="btn btn-warning btn-flat" title="Editar Grupo"><i class="fa fa-pencil-alt"></i></a>
+                                                <a href="#" onclick="confirmarExclusao({{ $group->id }}, '{{ $group->display_name }}')" data-toggle="modal" data-target="#modal-exclusao" class="btn btn-danger btn-flat" title="Excluir Grupo">
                                                     <i class="fa fa-trash-alt"></i>
                                                 </a>
                                             </div>
@@ -61,9 +61,8 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th>Cliente</th>
-                                    <th>E-mail</th>
-                                    <th>Número</th>
+                                    <th>Nome</th>
+                                    <th>Permissões</th>
                                     <th>Ações</th>
                                 </tr>
                             </tfoot>
@@ -117,19 +116,19 @@
 @section('js')
 <script>
     $(function () {
-        $('#phones-table').DataTable({
+        $('#groups-table').DataTable({
             language: {
                 decimal: ",",
                 processing: "Processando...",
                 search: "Pesquisar:",
                 lengthMenu: "_MENU_ resultados por página",
-                info: "Mostrando de _START_ até _END_ de _TOTAL_ telefones",
-                infoEmpty: "Mostrando 0 até 0 de 0 telefones",
-                infoFiltered: "(Filtrados de _MAX_ telefones)",
+                info: "Mostrando de _START_ até _END_ de _TOTAL_ grupos",
+                infoEmpty: "Mostrando 0 até 0 de 0 grupos",
+                infoFiltered: "(Filtrados de _MAX_ grupos)",
                 infoPostFix: "",
                 loadingRecords: "Carregando...",
-                zeroRecords: "Nenhum telefone encontrado",
-                emptyTable: "Nenhum telefone encontrado",
+                zeroRecords: "Nenhum grupo encontrado",
+                emptyTable: "Nenhum grupo encontrado",
                 paginate: {
                     first: "Primeiro",
                     previous: "Anterior",
@@ -145,10 +144,10 @@
         });
     });
     // Função para preparar o modal de exclusão
-    function confirmarExclusao(id, telefone) {
-        $('#form-exclusao').attr('action', '/telefones/'+id);
+    function confirmarExclusao(id, nome) {
+        $('#form-exclusao').attr('action', '/grupos/'+id);
         $('#form-exclusao').children('.modal-body').children('#form-exclusao-texto').remove();
-        $('#form-exclusao').children('.modal-body').append('<div id="form-exclusao-texto"><h4>Deseja confirmar a exclusão do telefone "<strong>'+telefone+'</strong>"?</h4></div>');
+        $('#form-exclusao').children('.modal-body').append('<div id="form-exclusao-texto"><h4>Deseja confirmar a exclusão do grupo "<strong>'+nome+'</strong>"?</h4></div>');
     }
 </script>
 @stop
