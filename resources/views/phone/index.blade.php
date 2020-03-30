@@ -10,6 +10,7 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="box box-black">
+            @can('admin')
             <div class="box-header with-border">
                 <div class="col-xs-12 col-sm-6 col-lg-4">
                     <a href="{{ route('telefones.create') }}" title="Cadastrar Telefone">                           
@@ -26,8 +27,9 @@
                     </a>
                 </div>
             </div>
+            @endcan
             <!-- /.box-header -->
-            <div class="box-body">
+            <div class="@can('admin') box-body @else box-header with-border @endcan">
                 <div class="row">
                     <div class="col-xs-12 table table-responsive">
                         <table id="phones-table" class="table table-bordered table-striped">

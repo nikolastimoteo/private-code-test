@@ -21,7 +21,6 @@ class ClientController extends Controller
             'min'            => 'Digite no mínimo :min caracteres.',
             'max'            => 'Digite no máximo :max caracteres.',
             'email'          => 'Digite um email válido.',
-            'email.unique'   => 'E-mail já cadastrado.',
         ];
     }
 
@@ -64,7 +63,7 @@ class ClientController extends Controller
     {
         $request->validate([
             'name'  => 'required|min:5|max:200',
-            'email' => 'required|email|unique:clients,email|max:100',
+            'email' => 'required|email|max:100',
         ], $this->messages());
 
         $client = Client::create([
@@ -129,7 +128,7 @@ class ClientController extends Controller
     {
         $request->validate([
             'name'  => 'required|min:5|max:200',
-            'email' => 'required|email|unique:clients,email,' . $id . '|max:100',
+            'email' => 'required|email|max:100',
         ], $this->messages());
 
         $adminId = Auth::user()->isAdmin() ? Auth::user()->id : Auth::user()->users_id;

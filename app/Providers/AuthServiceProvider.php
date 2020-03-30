@@ -19,12 +19,15 @@ class AuthServiceProvider extends ServiceProvider
     /**
      * Register any authentication / authorization services.
      *
+     * @author Níkolas Timóteo <nikolas@nikolastps.hotmail.com>
      * @return void
      */
     public function boot()
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('admin', function ($user) {
+            return $user->isAdmin();
+        });
     }
 }

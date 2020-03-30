@@ -88,7 +88,7 @@
 <script>
     $(function () {
         $(".select2").select2();
-        $('#number').inputmask('+55 (99) 9999[9]-9999', {placeholder: "", showMaskOnFocus: false, showMaskOnHover: false});
+        $('#number').inputmask('+99 (99) 9999[9]-9999', {placeholder: "", showMaskOnFocus: false, showMaskOnHover: false});
     });
 </script>
 @stop

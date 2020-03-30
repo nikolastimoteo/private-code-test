@@ -32,7 +32,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('perfil/alterarsenha', 'UserProfileController@getChangePassword')->name('getChangePassword');
     Route::post('perfil/alterarsenha', 'UserProfileController@postChangePassword')->name('postChangePassword');
 
-    Route::resource('usuarios', 'UserController');
-    Route::resource('clientes', 'ClientController');
+    Route::resource('usuarios', 'UserController')->middleware('can:admin');
+    Route::resource('clientes', 'ClientController')->middleware('can:admin');
     Route::resource('telefones', 'PhoneController');
 });

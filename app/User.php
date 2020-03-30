@@ -50,4 +50,26 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Client', 'users_id');
     }
+
+    /**
+     * Get the admin of the user.
+     * 
+     * @author Níkolas Timóteo <nikolas@dzp.net.br>
+     * @return App\User
+     */
+    public function admin()
+    {
+        return $this->belongsTo('App\User', 'users_id');
+    }
+
+    /**
+     * Get all the users from the admin.
+     * 
+     * @author Níkolas Timóteo <nikolas@nikolastps.hotmail.com>
+     * @return Collection<App\User>
+     */
+    public function users()
+    {
+        return $this->hasMany('App\User', 'users_id');
+    }
 }

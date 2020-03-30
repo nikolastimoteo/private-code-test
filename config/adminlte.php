@@ -136,10 +136,12 @@ return [
         [
             'text' => 'Usuários',
             'url'  => 'usuarios',
+            'can'  => 'admin',
         ],
         [
             'text' => 'Clientes',
             'url'  => 'clientes',
+            'can'  => 'admin',
         ],
         [
             'text' => 'Telefones',

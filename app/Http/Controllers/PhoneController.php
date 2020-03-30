@@ -10,6 +10,16 @@ use Auth;
 class PhoneController extends Controller
 {
     /**
+     * Cria uma nova instância de TiposAtividadeController
+     * 
+     *  @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('can:admin', ['only' => ['create', 'store']]);
+    }
+
+    /**
      * Get validation messages.
      *
      * @author Níkolas Timóteo <nikolas@nikolastps.hotmail.com>
@@ -19,7 +29,7 @@ class PhoneController extends Controller
     {
         return [
             'required' => 'Campo obrigatório.',
-            'regex'    => 'Número em formato inválido. Formatos aceitos: +55 (99) 99999-9999 ou +55 (99) 9999-9999',
+            'regex'    => 'Número em formato inválido. Formatos aceitos: +99 (99) 99999-9999 ou +99 (99) 9999-9999',
         ];
     }
 
