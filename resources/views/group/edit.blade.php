@@ -32,7 +32,7 @@
                     <div class="form-group has-feedback {{ $errors->has('permissions') ? 'has-error' : '' }}">
                         <label for="permissions">Permissões</label>
                         <select id="permissions" name="permissions[]" multiple="multiple"class="form-control select2" style="width: 100%;" required>
-                            <option value="">Selecione as permissões...</option>
+                            <option value="" disabled>Selecione as permissões...</option>
                             @foreach($permissions as $permission)
                                 <option value="{{ $permission->id }}" @if($group->hasPermissionTo($permission)) selected @endif>{{ $permission->display_name }}</option>
                             @endforeach

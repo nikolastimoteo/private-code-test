@@ -40,6 +40,21 @@
                         @endif
                     </div>
                     <!-- /.form-group -->
+                    <div class="form-group has-feedback {{ $errors->has('groups') ? 'has-error' : '' }}">
+                        <label for="groups">Grupos</label>
+                        <select id="groups" name="groups[]" multiple="multiple"class="form-control select2" style="width: 100%;">
+                            <option value="" disabled>Selecione os grupos...</option>
+                            @foreach($groups as $group)
+                                <option value="{{ $group->id }}" @if($user->hasRole($group)) selected @endif>{{ $group->display_name }}</option>
+                            @endforeach
+                        </select>
+                        @if ($errors->has('groups'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('groups') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                    <!-- /.form-group -->
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">
@@ -81,4 +96,9 @@
 @stop
 
 @section('js')
+<script>
+    $(function () {
+        $(".select2").select2();
+    });
+</script>
 @stop

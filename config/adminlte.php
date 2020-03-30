@@ -151,6 +151,7 @@ return [
         [
             'text' => 'Telefones',
             'url'  => 'telefones',
+            'can'  => 'view-edit-delete-phone',
         ],
         ['header' => 'Configurações da Conta'],
         [

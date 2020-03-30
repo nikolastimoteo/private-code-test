@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 use App\User;
 use Auth;
 
@@ -22,7 +23,8 @@ class UserController extends Controller
             'max'            => 'Digite no máximo :max caracteres.',
             'email'          => 'Digite um email válido.',
             'email.unique'   => 'E-mail já cadastrado.', 
-            'same'           => 'Senha diferente da confirmação.', 
+            'same'           => 'Senha diferente da confirmação.',
+            'array'          => 'Selecione ao menos 1 opção.',
         ];
     }
 
@@ -49,7 +51,12 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user.create');
+        $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin();
+
+        $groups = $admin->roles;
+
+        return view('user.create')
+            ->with('groups', $groups);
     }
 
     /**
@@ -66,6 +73,7 @@ class UserController extends Controller
             'email'                 => 'required|email|unique:users,email|max:100',
             'password'              => 'required|min:8|max:20',
             'password_confirmation' => 'required|same:password',
+            'groups'                => 'sometimes|array',
         ], $this->messages());
 
         $user = User::create([
@@ -74,6 +82,14 @@ class UserController extends Controller
             'password'  => bcrypt($request->password),
             'users_id'  => Auth::user()->id,
         ]);
+
+        if($request->exists('groups') && !empty($request->groups))
+        {
+            $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin();
+            $groups = $admin->roles->whereIn('id', $request->groups);
+
+            $user->assignRole($groups);
+        }
 
         return redirect()
             ->route('usuarios.index');
@@ -106,12 +122,19 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin();
+
+        $groups = $admin->roles;
+
         $user = User::where('id', $id)
                     ->where('users_id', Auth::user()->id)
                     ->first();
         if($user)
             return view('user.edit')
-                ->with('user', $user);
+                ->with([
+                    'user'   => $user,
+                    'groups' => $groups,
+                ]);
         abort(404, 'Usuário não encontrado.');
     }
 
@@ -126,7 +149,8 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => 'required|min:5|max:200',
+            'name'   => 'required|min:5|max:200',
+            'groups' => 'sometimes|array',
         ], $this->messages());
 
         $user = User::where('id', $id)
@@ -136,6 +160,11 @@ class UserController extends Controller
         {
             $user->name = $request->name;
             $user->save();
+            
+            $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin();
+            $groups = $admin->roles->whereIn('id', $request->groups);
+
+            $user->syncRoles($groups);
         }
 
         return redirect()

@@ -29,5 +29,8 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('admin', function ($user) {
             return $user->isAdmin();
         });
+        Gate::define('view-edit-delete-phone', function ($user) {
+            return $user->can('view-phone') || $user->can('edit-phone') || $user->can('delete-phone');
+        });
     }
 }

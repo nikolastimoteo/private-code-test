@@ -44,7 +44,9 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <a href="{{ route('telefones.index') }}" class="btn btn-flat btn-default pull-left" title="Voltar">Voltar</a>
-                            <a href="{{ route('telefones.edit', ['id' => $phone->id]) }}" class="btn btn-flat btn-warning pull-right" title="Editar Telefone">Editar Telefone</a>
+                            @can('edit-phone')
+                                <a href="{{ route('telefones.edit', ['id' => $phone->id]) }}" class="btn btn-flat btn-warning pull-right" title="Editar Telefone">Editar Telefone</a>
+                            @endcan
                         </div>
                         <!-- /.col -->
                     </div>

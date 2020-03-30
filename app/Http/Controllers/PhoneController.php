@@ -17,6 +17,9 @@ class PhoneController extends Controller
     public function __construct()
     {
         $this->middleware('can:admin', ['only' => ['create', 'store']]);
+        $this->middleware('permission:view-phone', ['only' => ['show']]);
+        $this->middleware('permission:edit-phone', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:delete-phone', ['only' => ['delete']]);
     }
 
     /**
@@ -116,7 +119,7 @@ class PhoneController extends Controller
             ->select('phones.*')
             ->where('clients.users_id', $adminId)
             ->where('phones.id', $id)
-            ->get();
+            ->first();
         if($phone)
             return view('phone.show')
                 ->with('phone', $phone);

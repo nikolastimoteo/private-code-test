@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Permission;
 use App\User;
 
 class RegisterController extends Controller
@@ -57,7 +58,10 @@ class RegisterController extends Controller
             'email'     => $request->email,
             'password'  => bcrypt($request->password),
         ]);
-
+        
+        $permissions = Permission::all();
+        $user->syncPermissions($permissions);
+        
         return redirect()
             ->route('login')
             ->with('success', 'Cadastro efetuado. Entre com o e-mail e senha cadastrados.');

@@ -35,6 +35,7 @@
                                 <tr>
                                     <th>Nome</th>
                                     <th>E-mail</th>
+                                    <th>Grupos</th>
                                     <th>Ações</th>
                                 </tr>
                             </thead>
@@ -43,6 +44,11 @@
                                     <tr>
                                         <td style="vertical-align: middle">{{ $user->name }}</td>
                                         <td style="vertical-align: middle">{{ $user->email }}</td>
+                                        <td style="vertical-align: middle">
+                                            @foreach ($user->roles as $group)
+                                                <small class="label bg-black" style="margin-left: 5px;">{{ $group->display_name }}</small>
+                                            @endforeach
+                                        </td>
                                         <td>
                                             <div class="btn-group">
                                                 <a href="{{ route('usuarios.show', ['id' => $user->id]) }}" type="button" class="btn btn-primary btn-flat" title="Visualizar Usuário"><i class="fa fa-eye"></i></a>
@@ -59,6 +65,7 @@
                                 <tr>
                                     <th>Nome</th>
                                     <th>E-mail</th>
+                                    <th>Grupos</th>
                                     <th>Ações</th>
                                 </tr>
                             </tfoot>

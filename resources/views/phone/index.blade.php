@@ -49,11 +49,17 @@
                                         <td style="vertical-align: middle">{{ $phone->number }}</td>
                                         <td>
                                             <div class="btn-group">
-                                                <a href="{{ route('telefones.show', ['id' => $phone->id]) }}" type="button" class="btn btn-primary btn-flat" title="Visualizar Telefone"><i class="fa fa-eye"></i></a>
-                                                <a href="{{ route('telefones.edit', ['id' => $phone->id]) }}" type="button" class="btn btn-warning btn-flat" title="Editar Telefone"><i class="fa fa-pencil-alt"></i></a>
-                                                <a href="#" onclick="confirmarExclusao({{ $phone->id }}, '{{ $phone->number }}')" data-toggle="modal" data-target="#modal-exclusao" class="btn btn-danger btn-flat" title="Excluir Telefone">
-                                                    <i class="fa fa-trash-alt"></i>
-                                                </a>
+                                                @can('view-phone')
+                                                    <a href="{{ route('telefones.show', ['id' => $phone->id]) }}" type="button" class="btn btn-primary btn-flat" title="Visualizar Telefone"><i class="fa fa-eye"></i></a>
+                                                @endcan
+                                                @can('edit-phone')
+                                                    <a href="{{ route('telefones.edit', ['id' => $phone->id]) }}" type="button" class="btn btn-warning btn-flat" title="Editar Telefone"><i class="fa fa-pencil-alt"></i></a>
+                                                @endcan
+                                                @can('delete-phone')
+                                                    <a href="#" onclick="confirmarExclusao({{ $phone->id }}, '{{ $phone->number }}')" data-toggle="modal" data-target="#modal-exclusao" class="btn btn-danger btn-flat" title="Excluir Telefone">
+                                                        <i class="fa fa-trash-alt"></i>
+                                                    </a>
+                                                @endcan
                                             </div>
                                         </td>
                                     </tr>
@@ -79,36 +85,38 @@
 </div>
 <!-- /.row -->
 
-<!-- Modal de exclusão -->
-<div class="modal fade" id="modal-exclusao" style="display: none;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form id="form-exclusao" action="#" method="post">
-                {!! csrf_field() !!}
-                @method('DELETE')
-                <div class="modal-header">
-                    <h4 class="modal-title">Confirmação de Exclusão</h4>
-                </div>
-                <div class="modal-body">
-                    <div id="form-exclusao-texto">
-                        
+@can('delete-phone')
+    <!-- Modal de exclusão -->
+    <div class="modal fade" id="modal-exclusao" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="form-exclusao" action="#" method="post">
+                    {!! csrf_field() !!}
+                    @method('DELETE')
+                    <div class="modal-header">
+                        <h4 class="modal-title">Confirmação de Exclusão</h4>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <a href="#" class="btn btn-flat btn-default pull-left" data-dismiss="modal">
-                        Cancelar
-                    </a>
-                    <button type="submit" class="btn btn-flat btn-danger pull-right">
-                        Confirmar
-                    </button>
-                </div>
-            </form>
+                    <div class="modal-body">
+                        <div id="form-exclusao-texto">
+                            
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-flat btn-default pull-left" data-dismiss="modal">
+                            Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-flat btn-danger pull-right">
+                            Confirmar
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <!-- /.modal-content -->
         </div>
-        <!-- /.modal-content -->
+        <!-- /.modal-dialog -->
     </div>
-    <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
+    <!-- /.modal -->
+@endcan
 @stop
 
 @section('css')
@@ -144,11 +152,13 @@
             pageLength: 50
         });
     });
-    // Função para preparar o modal de exclusão
-    function confirmarExclusao(id, telefone) {
-        $('#form-exclusao').attr('action', '/telefones/'+id);
-        $('#form-exclusao').children('.modal-body').children('#form-exclusao-texto').remove();
-        $('#form-exclusao').children('.modal-body').append('<div id="form-exclusao-texto"><h4>Deseja confirmar a exclusão do telefone "<strong>'+telefone+'</strong>"?</h4></div>');
-    }
+    @can('delete-phone')
+        // Função para preparar o modal de exclusão
+        function confirmarExclusao(id, telefone) {
+            $('#form-exclusao').attr('action', '/telefones/'+id);
+            $('#form-exclusao').children('.modal-body').children('#form-exclusao-texto').remove();
+            $('#form-exclusao').children('.modal-body').append('<div id="form-exclusao-texto"><h4>Deseja confirmar a exclusão do telefone "<strong>'+telefone+'</strong>"?</h4></div>');
+        }
+    @endcan
 </script>
 @stop

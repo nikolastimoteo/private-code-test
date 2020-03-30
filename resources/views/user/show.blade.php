@@ -38,6 +38,20 @@
                         @endif
                     </div>
                     <!-- /.form-group -->
+                    <div class="form-group has-feedback {{ $errors->has('groups') ? 'has-error' : '' }}">
+                        <label for="groups">Grupos</label>
+                        <select id="groups" name="groups[]" multiple="multiple"class="form-control select2" style="width: 100%;" disabled>
+                            @foreach($user->roles as $group)
+                                <option value="{{ $group->id }}" selected>{{ $group->display_name }}</option>
+                            @endforeach
+                        </select>
+                        @if ($errors->has('groups'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('groups') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                    <!-- /.form-group -->
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">

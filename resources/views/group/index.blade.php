@@ -44,7 +44,7 @@
                                         <td style="vertical-align: middle">{{ $group->display_name }}</td>
                                         <td style="vertical-align: middle">
                                             @foreach ($group->permissions as $permission)
-                                                <small class="label pull-right bg-black" style="margin-left: 5px;">{{ $permission->display_name }}</small>
+                                                <small class="label bg-black" style="margin-left: 5px;">{{ $permission->display_name }}</small>
                                             @endforeach
                                         </td>
                                         <td>
