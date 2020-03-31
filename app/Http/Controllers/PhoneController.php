@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Phone;
 use App\Client;
 use Auth;
+use App\Http\Resources\PhoneResource;
 
 class PhoneController extends Controller
 {
@@ -17,7 +18,8 @@ class PhoneController extends Controller
     public function __construct()
     {
         $this->middleware('can:admin', ['only' => ['create', 'store']]);
-        $this->middleware('permission:view-phone', ['only' => ['show']]);
+        $this->middleware('can:view-edit-delete-phone', ['only' => ['index']]);
+        $this->middleware('permission:view-phone', ['only' => ['show', 'search']]);
         $this->middleware('permission:edit-phone', ['only' => ['edit', 'update']]);
         $this->middleware('permission:delete-phone', ['only' => ['delete']]);
     }
@@ -200,5 +202,32 @@ class PhoneController extends Controller
         
         return redirect()
             ->route('telefones.index');
+    }
+
+    /**
+     * Return the phones that matches the searched term.
+     *
+     * @author Níkolas Timóteo <nikolas@nikolastps.hotmail.com>
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $adminId = Auth::user()->isAdmin() ? Auth::user()->id : Auth::user()->users_id;
+
+        $search = "%" . $request->search . "%";
+        $phones = Phone::join('clients', 'phones.clients_id', '=', 'clients.id')
+            ->select('phones.*')
+            ->where('clients.users_id', $adminId)
+            ->where(function ($query) use ($search) {
+                $query->where('clients.name', 'LIKE', $search)
+                ->orWhere('clients.email', 'LIKE', $search)
+                ->orWhere('phones.number', 'LIKE', $search);
+            })->orderBy('clients.name')->limit(10)->get();
+        
+        return response()->json([
+            'phones' => PhoneResource::collection($phones)
+        ], 200);
+        
     }
 }

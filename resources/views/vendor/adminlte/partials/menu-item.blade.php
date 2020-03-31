@@ -10,7 +10,7 @@
           ">
           <span class="input-group-btn">
                 <button type="submit" name="search" id="search-btn" class="btn btn-flat">
-                  <i class="fas fa-search"></i>
+                  <i class="fa fa-search"></i>
                 </button>
               </span>
         </div>
@@ -20,7 +20,7 @@
         <a href="{{ $item['href'] }}"
            @if (isset($item['target'])) target="{{ $item['target'] }}" @endif
         >
-            <i class="{{ $item['icon'] ?? 'far fa-fw fa-circle' }} {{ isset($item['icon_color']) ? 'text-' . $item['icon_color'] : '' }}"></i>
+            <i class="{{ $item['icon'] ?? 'fa fa-circle-o' }} {{ isset($item['icon_color']) ? 'text-' . $item['icon_color'] : '' }}"></i>
             <span>
                 {{ $item['text'] }}
             </span>
@@ -31,7 +31,7 @@
                 </span>
             @elseif (isset($item['submenu']))
                 <span class="pull-right-container">
-                    <i class="fas fa-angle-left pull-right"></i>
+                    <i class="fa fa-angle-left pull-right"></i>
                 </span>
             @endif
         </a>

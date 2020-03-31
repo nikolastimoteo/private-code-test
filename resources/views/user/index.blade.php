@@ -52,9 +52,9 @@
                                         <td>
                                             <div class="btn-group">
                                                 <a href="{{ route('usuarios.show', ['id' => $user->id]) }}" type="button" class="btn btn-primary btn-flat" title="Visualizar Usuário"><i class="fa fa-eye"></i></a>
-                                                <a href="{{ route('usuarios.edit', ['id' => $user->id]) }}" type="button" class="btn btn-warning btn-flat" title="Editar Usuário"><i class="fa fa-pencil-alt"></i></a>
+                                                <a href="{{ route('usuarios.edit', ['id' => $user->id]) }}" type="button" class="btn btn-warning btn-flat" title="Editar Usuário"><i class="fa fa-pencil"></i></a>
                                                 <a href="#" onclick="confirmarExclusao({{ $user->id }}, '{{ $user->name }}')" data-toggle="modal" data-target="#modal-exclusao" class="btn btn-danger btn-flat" title="Excluir Usuário">
-                                                    <i class="fa fa-trash-alt"></i>
+                                                    <i class="fa fa-trash"></i>
                                                 </a>
                                             </div>
                                         </td>

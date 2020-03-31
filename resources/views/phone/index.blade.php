@@ -46,18 +46,18 @@
                                     <tr>
                                         <td style="vertical-align: middle">{{ $phone->client->name }}</td>
                                         <td style="vertical-align: middle">{{ $phone->client->email }}</td>
-                                        <td style="vertical-align: middle">{{ $phone->number }}</td>
+                                        <td style="vertical-align: middle">{{ $phone->number }} {!! $phone->links() !!}</td>
                                         <td>
                                             <div class="btn-group">
                                                 @can('view-phone')
                                                     <a href="{{ route('telefones.show', ['id' => $phone->id]) }}" type="button" class="btn btn-primary btn-flat" title="Visualizar Telefone"><i class="fa fa-eye"></i></a>
                                                 @endcan
                                                 @can('edit-phone')
-                                                    <a href="{{ route('telefones.edit', ['id' => $phone->id]) }}" type="button" class="btn btn-warning btn-flat" title="Editar Telefone"><i class="fa fa-pencil-alt"></i></a>
+                                                    <a href="{{ route('telefones.edit', ['id' => $phone->id]) }}" type="button" class="btn btn-warning btn-flat" title="Editar Telefone"><i class="fa fa-pencil"></i></a>
                                                 @endcan
                                                 @can('delete-phone')
                                                     <a href="#" onclick="confirmarExclusao({{ $phone->id }}, '{{ $phone->number }}')" data-toggle="modal" data-target="#modal-exclusao" class="btn btn-danger btn-flat" title="Excluir Telefone">
-                                                        <i class="fa fa-trash-alt"></i>
+                                                        <i class="fa fa-trash"></i>
                                                     </a>
                                                 @endcan
                                             </div>

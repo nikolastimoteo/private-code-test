@@ -132,41 +132,47 @@ return [
         [
             'text' => 'Home',
             'url'  => 'home',
+            'icon' => 'fa fa-home',
         ],
         [
             'text' => 'Clientes',
             'url'  => 'clientes',
             'can'  => 'admin',
+            'icon' => 'fa fa-user-secret',
         ],
         [
             'text' => 'Telefones',
             'url'  => 'telefones',
             'can'  => 'view-edit-delete-phone',
+            'icon' => 'fa fa-phone',
         ],
         [
             'text' => 'Usuários',
             'url'  => 'usuarios',
             'can'  => 'admin',
+            'icon' => 'fa fa-user',
         ],
         [
             'text' => 'Grupos',
             'url'  => 'grupos',
             'can'  => 'admin',
+            'icon' => 'fa fa-users',
         ],
         [
             'text' => 'Log de Atividades',
             'url'  => 'logdeatividades',
+            'icon' => 'fa fa-file-text-o',
         ],
         ['header' => 'Configurações da Conta'],
         [
             'text' => 'Meu Perfil',
             'url'  => 'perfil',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fa fa-user',
         ],
         [
             'text' => 'Alterar Senha',
             'url'  => 'perfil/alterarsenha',
-            'icon' => 'fas fa-fw fa-lock',
+            'icon' => 'fa fa-lock',
         ],
     ],
 

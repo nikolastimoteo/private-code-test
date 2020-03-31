@@ -35,6 +35,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('usuarios', 'UserController')->middleware('can:admin');
     Route::resource('clientes', 'ClientController')->middleware('can:admin');
     Route::resource('telefones', 'PhoneController');
+    Route::post('telefones/pesquisar', 'PhoneController@search')->name('telefones.search');
     Route::resource('grupos', 'GroupController')->middleware('can:admin');
-    Route::get('logdeatividades', 'ActivityLogController@index');
+    Route::get('logdeatividades', 'ActivityLogController@index')->name('logs.index');
 });

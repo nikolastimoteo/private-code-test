@@ -46,9 +46,9 @@
                                         <td>
                                             <div class="btn-group">
                                                 <a href="{{ route('clientes.show', ['id' => $client->id]) }}" type="button" class="btn btn-primary btn-flat" title="Visualizar Cliente"><i class="fa fa-eye"></i></a>
-                                                <a href="{{ route('clientes.edit', ['id' => $client->id]) }}" type="button" class="btn btn-warning btn-flat" title="Editar Cliente"><i class="fa fa-pencil-alt"></i></a>
+                                                <a href="{{ route('clientes.edit', ['id' => $client->id]) }}" type="button" class="btn btn-warning btn-flat" title="Editar Cliente"><i class="fa fa-pencil"></i></a>
                                                 <a href="#" onclick="confirmarExclusao({{ $client->id }}, '{{ $client->name }}')" data-toggle="modal" data-target="#modal-exclusao" class="btn btn-danger btn-flat" title="Excluir Cliente">
-                                                    <i class="fa fa-trash-alt"></i>
+                                                    <i class="fa fa-trash"></i>
                                                 </a>
                                             </div>
                                         </td>

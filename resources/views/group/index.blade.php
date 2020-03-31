@@ -50,9 +50,9 @@
                                         <td>
                                             <div class="btn-group">
                                                 <a href="{{ route('grupos.show', ['id' => $group->id]) }}" type="button" class="btn btn-primary btn-flat" title="Visualizar Grupo"><i class="fa fa-eye"></i></a>
-                                                <a href="{{ route('grupos.edit', ['id' => $group->id]) }}" type="button" class="btn btn-warning btn-flat" title="Editar Grupo"><i class="fa fa-pencil-alt"></i></a>
+                                                <a href="{{ route('grupos.edit', ['id' => $group->id]) }}" type="button" class="btn btn-warning btn-flat" title="Editar Grupo"><i class="fa fa-pencil"></i></a>
                                                 <a href="#" onclick="confirmarExclusao({{ $group->id }}, '{{ $group->display_name }}')" data-toggle="modal" data-target="#modal-exclusao" class="btn btn-danger btn-flat" title="Excluir Grupo">
-                                                    <i class="fa fa-trash-alt"></i>
+                                                    <i class="fa fa-trash"></i>
                                                 </a>
                                             </div>
                                         </td>
