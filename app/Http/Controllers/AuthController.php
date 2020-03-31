@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\ActivityLog;
 use Auth;
 
 class AuthController extends Controller
@@ -33,12 +34,23 @@ class AuthController extends Controller
         ];
 
         if(Auth::attempt($credentials))
+        {
+            ActivityLog::create([
+                'type'        => 'Login de Usuário',
+                'model'       => 'App\User',
+                'model_id'    => Auth::user()->id,
+                'description' => 'Acessou o sistema. ',
+                'users_id'    => Auth::user()->id,
+            ]);
             return redirect()
                 ->route('getHome');
+        }
         else
+        {
             return redirect()
                 ->back()
                 ->with('error', 'E-mail e/ou senha incorreto(s)');
+        }
     }
 
     /**

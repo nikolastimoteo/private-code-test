@@ -40,4 +40,15 @@ class Client extends Model
     {
         return $this->hasMany('App\Phone', 'clients_id');
     }
+
+    /**
+     * Returns a string that represents the object.
+     * 
+     * @author Níkolas Timóteo <nikolas@nikolastps.hotmail.com>
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->name;
+    }
 }

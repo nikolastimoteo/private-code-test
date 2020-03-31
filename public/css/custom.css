@@ -38,3 +38,23 @@
 .modal-footer{
     border-top: 1px solid #333;
 }
+
+/* Select options */
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #333;
+    color: white;
+}
+
+/* Select options (multiple options) */
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    white-space: normal; 
+    background-color: #333;
+    border-color: #333;
+    padding: 1px 10px;
+    color: #fff;
+}
+
+/* Tabs */
+.nav-tabs-custom>.nav-tabs>li.active {
+    border-top-color: #333;
+}

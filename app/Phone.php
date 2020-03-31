@@ -27,4 +27,15 @@ class Phone extends Model
     {
         return $this->belongsTo('App\Client', 'clients_id');
     }
+
+    /**
+     * Returns a string that represents the object.
+     * 
+     * @author Níkolas Timóteo <nikolas@nikolastps.hotmail.com>
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->number;
+    }
 }

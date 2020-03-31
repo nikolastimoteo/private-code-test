@@ -51,7 +51,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin();
+        $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin;
 
         $groups = $admin->roles;
 
@@ -85,7 +85,7 @@ class UserController extends Controller
 
         if($request->exists('groups') && !empty($request->groups))
         {
-            $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin();
+            $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin;
             $groups = $admin->roles->whereIn('id', $request->groups);
 
             $user->assignRole($groups);
@@ -122,7 +122,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin();
+        $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin;
 
         $groups = $admin->roles;
 
@@ -161,7 +161,7 @@ class UserController extends Controller
             $user->name = $request->name;
             $user->save();
             
-            $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin();
+            $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin;
             $groups = $admin->roles->whereIn('id', $request->groups);
 
             $user->syncRoles($groups);

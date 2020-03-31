@@ -73,4 +73,26 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\User', 'users_id');
     }
+
+    /**
+     * Get all the activity logs from the user.
+     * 
+     * @author Níkolas Timóteo <nikolas@nikolastps.hotmail.com>
+     * @return Collection<App\ActivityLog>
+     */
+    public function activityLogs()
+    {
+        return $this->hasMany('App\ActivityLog', 'users_id')->orderBy('created_at', 'DESC');
+    }
+
+    /**
+     * Returns a string that represents the object.
+     * 
+     * @author Níkolas Timóteo <nikolas@nikolastps.hotmail.com>
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->name;
+    }
 }

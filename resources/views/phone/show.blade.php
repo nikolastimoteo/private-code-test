@@ -17,7 +17,7 @@
             <form autocomplete="off">
                 <div class="box-body">
                     <div class="form-group has-feedback {{ $errors->has('clients_id') ? 'has-error' : '' }}">
-                        <label for="clients_id">Número</label>
+                        <label for="clients_id">Cliente</label>
                         <input type="text" name="clients_id" id="clients_id" class="form-control" value="{{ $phone->client->name }}"
                             required readonly>
                         @if ($errors->has('clients_id'))

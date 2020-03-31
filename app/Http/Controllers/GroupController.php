@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
+//use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use App\Group;
 use Auth;
 use Str;
 
@@ -35,7 +36,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin();
+        $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin;
 
         $groups = $admin->roles;
 
@@ -71,7 +72,7 @@ class GroupController extends Controller
             'permissions'  => 'required|array|min:1',
         ], $this->messages());
 
-        $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin();
+        $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin;
 
         $name = Str::slug($admin->id . ' ' .$request->display_name);
         if($admin->roles->where('name', $name)->count() > 0)
@@ -80,7 +81,7 @@ class GroupController extends Controller
                 ->withInput()
                 ->withErrors(['display_name' => 'Nome já cadastrado.']);
         
-        $group = Role::create([
+        $group = Group::create([
             'name' => $name,
             'display_name' => $request->display_name,
         ]);
@@ -104,7 +105,7 @@ class GroupController extends Controller
      */
     public function show($id)
     {
-        $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin();
+        $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin;
 
         $group = $admin->roles
             ->where('id', $id)
@@ -126,7 +127,7 @@ class GroupController extends Controller
     {
         $permissions = Permission::all();
 
-        $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin();
+        $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin;
 
         $group = $admin->roles
             ->where('id', $id)
@@ -155,7 +156,7 @@ class GroupController extends Controller
             'permissions'  => 'required|array|min:1',
         ], $this->messages());
 
-        $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin();
+        $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin;
 
         $group = $admin->roles
             ->where('id', $id)
@@ -191,7 +192,7 @@ class GroupController extends Controller
      */
     public function destroy($id)
     {
-        $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin();
+        $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin;
 
         $group = $admin->roles
             ->where('id', $id)

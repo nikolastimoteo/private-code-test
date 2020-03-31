@@ -134,13 +134,18 @@ return [
             'url'  => 'home',
         ],
         [
-            'text' => 'Usuários',
-            'url'  => 'usuarios',
+            'text' => 'Clientes',
+            'url'  => 'clientes',
             'can'  => 'admin',
         ],
         [
-            'text' => 'Clientes',
-            'url'  => 'clientes',
+            'text' => 'Telefones',
+            'url'  => 'telefones',
+            'can'  => 'view-edit-delete-phone',
+        ],
+        [
+            'text' => 'Usuários',
+            'url'  => 'usuarios',
             'can'  => 'admin',
         ],
         [
@@ -149,9 +154,8 @@ return [
             'can'  => 'admin',
         ],
         [
-            'text' => 'Telefones',
-            'url'  => 'telefones',
-            'can'  => 'view-edit-delete-phone',
+            'text' => 'Log de Atividades',
+            'url'  => 'logdeatividades',
         ],
         ['header' => 'Configurações da Conta'],
         [
