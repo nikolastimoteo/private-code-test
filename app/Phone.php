@@ -3,10 +3,13 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
 class Phone extends Model
 {
+    use SoftDeletes;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -36,6 +39,6 @@ class Phone extends Model
      */
     public function __toString()
     {
-        return $this->number;
+        return ($this->deleted_at != null) ? '(Excluído) ' . $this->number : '(ID: '. $this->id .') ' . $this->number;
     }
 }

@@ -3,6 +3,7 @@
 namespace App;
 
 use Spatie\Permission\Guard;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Exceptions\RoleDoesNotExist;
@@ -17,6 +18,7 @@ class Group extends Model implements RoleContract
 {
     use HasPermissions;
     use RefreshesPermissionCache;
+    use SoftDeletes;
 
     protected $guarded = ['id'];
 
@@ -164,6 +166,6 @@ class Group extends Model implements RoleContract
      */
     public function __toString()
     {
-        return $this->display_name;
+        return ($this->deleted_at != null) ? '(Excluído) ' . $this->display_name : '(ID: '. $this->id .') ' . $this->display_name;
     }
 }

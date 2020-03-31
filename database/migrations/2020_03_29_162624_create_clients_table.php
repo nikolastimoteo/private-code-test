@@ -20,6 +20,7 @@ class CreateClientsTable extends Migration
             $table->string('email', 100);
             $table->bigInteger('users_id')->unsigned();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::table('clients', function (Blueprint $table) {

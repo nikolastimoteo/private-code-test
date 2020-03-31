@@ -29,6 +29,6 @@ class ActivityLog extends Model
 
     public function modelObject()
     {
-        return $this->model::find($this->model_id);
+        return $this->model::withTrashed()->find($this->model_id);
     }
 }

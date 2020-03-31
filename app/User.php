@@ -3,12 +3,13 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use Notifiable, HasRoles;
+    use Notifiable, HasRoles, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -93,6 +94,6 @@ class User extends Authenticatable
      */
     public function __toString()
     {
-        return $this->name;
+        return ($this->deleted_at != null) ? '(Excluído) ' . $this->name : '(ID: '. $this->id .') ' . $this->name;
     }
 }

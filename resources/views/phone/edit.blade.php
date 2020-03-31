@@ -32,7 +32,7 @@
                     <div class="form-group has-feedback {{ $errors->has('number') ? 'has-error' : '' }}">
                         <label for="number">Número</label>
                         <input type="text" name="number" id="number" class="form-control" value="{{ old('number', $phone->number) }}"
-                            placeholder="Digite o número do telefone" required>
+                            placeholder="Digite o número do telefone no formato +99 (99) 99999-9999 ou +99 (99) 9999-9999" required>
                         @if ($errors->has('number'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('number') }}</strong>

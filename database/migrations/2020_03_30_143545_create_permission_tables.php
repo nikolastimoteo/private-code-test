@@ -35,6 +35,7 @@ class CreatePermissionTables extends Migration
             $table->string('display_name', 100);
             $table->string('guard_name');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create($tableNames['model_has_permissions'], function (Blueprint $table) use ($tableNames, $columnNames) {

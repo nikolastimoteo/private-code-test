@@ -18,6 +18,7 @@ class CreatePhonesTable extends Migration
             $table->string('number', 20);
             $table->bigInteger('clients_id')->unsigned();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::table('phones', function (Blueprint $table) {

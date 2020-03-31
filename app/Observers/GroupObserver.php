@@ -2,7 +2,6 @@
 
 namespace App\Observers;
 
-//use Spatie\Permission\Models\Role;
 use App\Group;
 use App\ActivityLog;
 use Auth;
