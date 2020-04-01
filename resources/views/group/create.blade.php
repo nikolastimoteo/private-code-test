@@ -32,9 +32,15 @@
                         <label for="permissions">Permissões</label>
                         <select id="permissions" name="permissions[]" multiple="multiple"class="form-control select2" style="width: 100%;" required>
                             <option value="" disabled>Selecione as permissões...</option>
-                            @foreach($permissions as $permission)
-                                <option value="{{ $permission->id }}">{{ $permission->display_name }}</option>
-                            @endforeach
+                            @if(!is_null(old('permissions')))
+                                @foreach($permissions as $permission)
+                                    <option value="{{ $permission->id }}" {{ in_array($permission->id, old('permissions')) ? 'selected' : '' }}>{{ $permission->display_name }}</option>
+                                @endforeach
+                            @else
+                                @foreach($permissions as $permission)
+                                    <option value="{{ $permission->id }}">{{ $permission->display_name }}</option>
+                                @endforeach
+                            @endif
                         </select>
                         @if ($errors->has('permissions'))
                             <span class="help-block">

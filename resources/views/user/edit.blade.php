@@ -44,9 +44,15 @@
                         <label for="groups">Grupos</label>
                         <select id="groups" name="groups[]" multiple="multiple"class="form-control select2" style="width: 100%;">
                             <option value="" disabled>Selecione os grupos...</option>
-                            @foreach($groups as $group)
-                                <option value="{{ $group->id }}" @if($user->hasRole($group)) selected @endif>{{ $group->display_name }}</option>
-                            @endforeach
+                            @if(!is_null(old('groups')))
+                                @foreach($groups as $group)
+                                    <option value="{{ $group->id }}" {{ in_array($group->id, old('groups')) ? 'selected' : '' }}>{{ $group->display_name }}</option>
+                                @endforeach
+                            @else
+                                @foreach($groups as $group)
+                                    <option value="{{ $group->id }}" @if($user->hasRole($group)) selected @endif>{{ $group->display_name }}</option>
+                                @endforeach
+                            @endif
                         </select>
                         @if ($errors->has('groups'))
                             <span class="help-block">

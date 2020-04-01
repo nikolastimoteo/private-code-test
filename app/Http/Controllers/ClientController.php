@@ -17,10 +17,11 @@ class ClientController extends Controller
     private function messages()
     {
         return [
-            'required'       => 'Campo obrigatório.',
-            'min'            => 'Digite no mínimo :min caracteres.',
-            'max'            => 'Digite no máximo :max caracteres.',
-            'email'          => 'Digite um email válido.',
+            'required' => 'Campo obrigatório.',
+            'min'      => 'Digite no mínimo :min caracteres.',
+            'max'      => 'Digite no máximo :max caracteres.',
+            'email'    => 'Digite um email válido.',
+            'regex'    => 'Número em formato inválido. Formatos aceitos: +99 (99) 99999-9999 ou +99 (99) 9999-9999',
         ];
     }
 
@@ -60,15 +61,27 @@ class ClientController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'  => 'required|min:5|max:200',
-            'email' => 'required|email|max:100',
+            'name'     => 'required|min:5|max:200',
+            'email'    => 'required|email|max:100',
+            'phones'   => 'sometimes|array',
+            'phones.*' => 'required|regex:/\+\d{2}\s\(\d{2}\)\s\d{4,5}\-\d{4}/',
         ], $this->messages());
 
         $client = Client::create([
             'name'      => $request->name,
             'email'     => $request->email,
-            'users_id'  => Auth::user()->isAdmin() ? Auth::user()->id : Auth::user()->users_id,
+            'users_id'  => Auth::user()->admin()->id,
         ]);
+
+        if($request->exists('phones') && !empty($request->phones))
+        {
+            $phonesArray = array_map(function($phone) {
+                return [ 'number' => $phone ];
+            }, $request->phones);
+
+            $client->phones()->createMany($phonesArray);
+        }
+        
 
         return redirect()
             ->route('clientes.index');

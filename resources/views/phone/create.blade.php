@@ -21,9 +21,15 @@
                         <label for="clients_id">Cliente</label>
                         <select id="clients_id" name="clients_id" class="form-control select2" style="width: 100%;" required>
                             <option value="">Selecione um cliente...</option>
-                            @foreach($clients as $client)
-                                <option value="{{ $client->id }}">{{ $client->name }}</option>
-                            @endforeach
+                            @if(!is_null(old('clients_id')))
+                                @foreach($clients as $client)
+                                    <option value="{{ $client->id }}" {{ $client->id == old('clients_id') ? 'selected' : '' }}>{{ $client->name }}</option>
+                                @endforeach
+                            @else
+                                @foreach($clients as $client)
+                                    <option value="{{ $client->id }}">{{ $client->name }}</option>
+                                @endforeach
+                            @endif
                         </select>
                         @if ($errors->has('clients_id'))
                             <span class="help-block">

@@ -39,6 +39,37 @@
                         @endif
                     </div>
                     <!-- /.form-group -->
+                    <div class="form-group has-feedback">
+                        <label for="include_phone">Telefones</label>
+                        <div class="input-group">
+                            <input type="text" id="include_phone" name="include_phone" class="form-control"
+                                placeholder="Digite um número de telefone no formato +99 (99) 99999-9999 ou +99 (99) 9999-9999 e clique em adicionar">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn bg-black btn-flat" id="add_button" title="Adicionar Telefone">Adicionar Telefone</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.form-group -->
+                    <div id="phones">
+                        @if(!is_null(old('phones')))
+                            @foreach(old('phones') as $key => $phone)
+                                <div class="form-group has-feedback {{ $errors->has('phones.' . $key) ? 'has-error' : '' }}">
+                                    <div class="input-group">
+                                        <input type="text" name="phones[]" class="form-control" value="{{ old('phones.' . $key) }}"placeholder="Digite o número do telefone no formato +99 (99) 99999-9999 ou +99 (99) 9999-9999" readonly required>
+                                        <div class="input-group-btn">
+                                            <button type="button" class="btn bg-red btn-flat remove_button" title="Remover Telefone"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                    </div>
+                                    @if($errors->has('phones.' . $key))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('phones.' . $key) }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+                    <!-- /#phones -->
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer">
@@ -80,4 +111,29 @@
 @stop
 
 @section('js')
+<script src="{{ asset('vendor/adminlte/vendor/input-mask/jquery.inputmask.js') }}"></script>
+<script>
+    $(function () {
+        $('#include_phone').inputmask('+99 (99) 9999[9]-9999', {placeholder: "", showMaskOnFocus: false, showMaskOnHover: false});
+
+        $('#add_button').on('click', function(){
+            var phone = $('#include_phone').val();
+            if(phone !== "" && $('#include_phone').inputmask("isComplete")){
+                $('#phones').append('<div class="form-group">' +
+                                        '<div class="input-group">' +
+                                            '<input type="text" name="phones[]" class="form-control" value="'+phone+'"placeholder="Digite o número do telefone no formato +99 (99) 99999-9999 ou +99 (99) 9999-9999" readonly required>' +
+                                            '<div class="input-group-btn">' +
+                                                '<button type="button" class="btn bg-red btn-flat remove_button" title="Remover Telefone"><i class="fa fa-trash"></i></button>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>');
+                $('#include_phone').val('');
+            }
+        });
+
+        $('#phones').on('click', '.remove_button', function () {
+            $(this).parent('div').parent('div').parent('div').remove();
+        });
+    });
+</script>
 @stop
