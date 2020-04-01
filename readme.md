@@ -1,4 +1,4 @@
-# Agenda Telefônica - Private Code
+# Agenda Telefônica - Private Code Test
 
 ## Instalando o projeto:
 <p>Acesse o diretório em que deseja baixar o projeto e execute o comando:</p>
@@ -18,7 +18,7 @@ DB_PASSWORD=</code></pre>
 <p>Gere a chave da aplicação executando o comando:</p>
 <pre><code>php artisan key:generate</code></pre>
 
-<p>Execute as migrações e *seeders* do projeto com o comando:</p>
+<p>Execute as migrações e <i>seeders</i> do projeto com o comando:</p>
 <pre><code>php artisan migrate --seed</code></pre>
 
 <p>Execute o servidor de teste com o comando:</p>
