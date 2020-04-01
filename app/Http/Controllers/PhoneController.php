@@ -46,11 +46,9 @@ class PhoneController extends Controller
      */
     public function index()
     {
-        $adminId = Auth::user()->isAdmin() ? Auth::user()->id : Auth::user()->users_id;
-
         $phones = Phone::join('clients', 'phones.clients_id', '=', 'clients.id')
             ->select('phones.*')
-            ->where('clients.users_id', $adminId)
+            ->where('clients.users_id', Auth::user()->admin()->id)
             ->get();
 
         return view('phone.index')
@@ -65,9 +63,7 @@ class PhoneController extends Controller
      */
     public function create()
     {
-        $adminId = Auth::user()->isAdmin() ? Auth::user()->id : Auth::user()->users_id;
-
-        $clients = Client::where('users_id', $adminId)
+        $clients = Client::where('users_id', Auth::user()->admin()->id)
             ->get();
 
         return view('phone.create')
@@ -83,15 +79,13 @@ class PhoneController extends Controller
      */
     public function store(Request $request)
     {
-        $adminId = Auth::user()->isAdmin() ? Auth::user()->id : Auth::user()->users_id;
-
         $request->validate([
             'clients_id' => 'required',
             'number'     => 'required|regex:/\+\d{2}\s\(\d{2}\)\s\d{4,5}\-\d{4}/',
         ], $this->messages());
 
         $client = Client::where('id', $request->clients_id)
-            ->where('users_id', $adminId)
+            ->where('users_id', Auth::user()->admin()->id)
             ->first();
         if($client)
         {
@@ -115,11 +109,9 @@ class PhoneController extends Controller
      */
     public function show($id)
     {
-        $adminId = Auth::user()->isAdmin() ? Auth::user()->id : Auth::user()->users_id;
-
         $phone = Phone::join('clients', 'phones.clients_id', '=', 'clients.id')
             ->select('phones.*')
-            ->where('clients.users_id', $adminId)
+            ->where('clients.users_id', Auth::user()->admin()->id)
             ->where('phones.id', $id)
             ->first();
         if($phone)
@@ -137,11 +129,9 @@ class PhoneController extends Controller
      */
     public function edit($id)
     {
-        $adminId = Auth::user()->isAdmin() ? Auth::user()->id : Auth::user()->users_id;
-
         $phone = Phone::join('clients', 'phones.clients_id', '=', 'clients.id')
             ->select('phones.*')
-            ->where('clients.users_id', $adminId)
+            ->where('clients.users_id', Auth::user()->admin()->id)
             ->where('phones.id', $id)
             ->first();
         if($phone)
@@ -164,11 +154,9 @@ class PhoneController extends Controller
             'number' => 'required|regex:/\+\d{2}\s\(\d{2}\)\s\d{4,5}\-\d{4}/',
         ], $this->messages());
 
-        $adminId = Auth::user()->isAdmin() ? Auth::user()->id : Auth::user()->users_id;
-
         $phone = Phone::join('clients', 'phones.clients_id', '=', 'clients.id')
             ->select('phones.*')
-            ->where('clients.users_id', $adminId)
+            ->where('clients.users_id', Auth::user()->admin()->id)
             ->where('phones.id', $id)
             ->first();
         if($phone)
@@ -190,11 +178,9 @@ class PhoneController extends Controller
      */
     public function destroy($id)
     {
-        $adminId = Auth::user()->isAdmin() ? Auth::user()->id : Auth::user()->users_id;
-
         $phone = Phone::join('clients', 'phones.clients_id', '=', 'clients.id')
             ->select('phones.*')
-            ->where('clients.users_id', $adminId)
+            ->where('clients.users_id', Auth::user()->admin()->id)
             ->where('phones.id', $id)
             ->first();
         if($phone)
@@ -213,12 +199,10 @@ class PhoneController extends Controller
      */
     public function search(Request $request)
     {
-        $adminId = Auth::user()->isAdmin() ? Auth::user()->id : Auth::user()->users_id;
-
         $search = "%" . $request->search . "%";
         $phones = Phone::join('clients', 'phones.clients_id', '=', 'clients.id')
             ->select('phones.*')
-            ->where('clients.users_id', $adminId)
+            ->where('clients.users_id', Auth::user()->admin()->id)
             ->where(function ($query) use ($search) {
                 $query->where('clients.name', 'LIKE', $search)
                 ->orWhere('clients.email', 'LIKE', $search)

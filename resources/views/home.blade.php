@@ -73,6 +73,8 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <ul id="results" class="products-list product-list-in-box" style="padding: 10px;">
+                                
+                                <!-- Search Results -->
 
                             </ul>
                         </div>
@@ -98,35 +100,39 @@
         $(function() {
             $('#search-form').submit(function(event) {
                 event.preventDefault();
-                $.ajax({
-                    url: "{{ route('telefones.search') }}",
-                    type: "post",
-                    data: $(this).serialize(),
-                    dataType: 'json',
-                    success: function(response) {
-                        $('#results').children('li').remove();
-                        var phones = response.phones;
-                        if(phones.length > 0 ) {
-                            phones.forEach(phone => {
-                                var item = '<li class="item" style="padding-top: 5px; padding-bottom: 5px;">' +
-                                                '<span style="font-size: 18px;">' + phone.client_name + '</span>' +
-                                                '<a href="mailto:'+phone.client_email+'" title="Enviar E-mail" style="margin-left: 5px; margin-right: 5px;"><i class="fa fa-lg fa-envelope text-black"></i></a>' +
-                                                phone.links +
-                                                '<span class="product-description">' +
-                                                    phone.number + '<br>' +
-                                                    phone.client_email +
-                                                '</span>' +
-                                            '</li>';
+                var searchText = $('#search').val();
+                if(searchText === "")
+                    $('#results').children('li').remove();
+                else
+                    $.ajax({
+                        url: "{{ route('telefones.search') }}",
+                        type: "post",
+                        data: $(this).serialize(),
+                        dataType: 'json',
+                        success: function(response) {
+                            $('#results').children('li').remove();
+                            var phones = response.phones;
+                            if(phones.length > 0 ) {
+                                phones.forEach(phone => {
+                                    var item = '<li class="item" style="padding-top: 5px; padding-bottom: 5px;">' +
+                                                    '<span style="font-size: 18px;">' + phone.client_name + '</span>' +
+                                                    '<a href="mailto:'+phone.client_email+'" title="Enviar E-mail" style="margin-left: 5px; margin-right: 5px;"><i class="fa fa-lg fa-envelope text-black"></i></a>' +
+                                                    phone.links +
+                                                    '<span class="product-description">' +
+                                                        phone.number + '<br>' +
+                                                        phone.client_email +
+                                                    '</span>' +
+                                                '</li>';
+                                    $('#results').append(item);
+                                });
+                            } else {
+                                var item = '<li class="item" style="padding-top: 5px; padding-bottom: 5px; text-align: center;">' +
+                                                '<h3>Nenhum cliente encontrado!</h3>' +
+                                        '</li>';
                                 $('#results').append(item);
-                            });
-                        } else {
-                            var item = '<li class="item" style="padding-top: 5px; padding-bottom: 5px; text-align: center;">' +
-                                            '<h3>Nenhum cliente encontrado!</h3>' +
-                                    '</li>';
-                            $('#results').append(item);
+                            }
                         }
-                    }
-                });
+                    });
             });
         });
     </script>

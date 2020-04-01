@@ -19,7 +19,7 @@ class PhoneResource extends JsonResource
             'client_name'  => $this->client->name,
             'client_email' => $this->client->email,
             'number'       => $this->number,
-            'links'        => $this->links(),
+            'links'        => create_phone_links($this->number),
         ];
     }
 }

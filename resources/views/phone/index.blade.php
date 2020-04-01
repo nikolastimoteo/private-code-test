@@ -46,7 +46,7 @@
                                     <tr>
                                         <td style="vertical-align: middle">{{ $phone->client->name }}</td>
                                         <td style="vertical-align: middle">{{ $phone->client->email }}</td>
-                                        <td style="vertical-align: middle">{{ $phone->number }} {!! $phone->links() !!}</td>
+                                        <td style="vertical-align: middle">{{ $phone->number }} {!! create_phone_links($phone->number) !!}</td>
                                         <td>
                                             <div class="btn-group">
                                                 @can('view-phone')

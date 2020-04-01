@@ -45,7 +45,7 @@
                 <div class="box-footer">
                     <div class="row">
                         <div class="col-xs-12">
-                            <a href="{{ route('getHome') }}" class="btn btn-flat btn-default pull-left" title="Voltar">Voltar</a>
+                            <a href="{{ URL::previous() }}" class="btn btn-flat btn-default pull-left" title="Voltar">Voltar</a>
                             <button type="submit" class="btn btn-flat btn-primary pull-right" title="Salvar Alterações">Salvar Alterações</button>
                         </div>
                         <!-- /.col -->

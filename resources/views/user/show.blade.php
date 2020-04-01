@@ -57,7 +57,7 @@
                 <div class="box-footer">
                     <div class="row">
                         <div class="col-xs-12">
-                            <a href="{{ route('usuarios.index') }}" class="btn btn-flat btn-default pull-left" title="Voltar">Voltar</a>
+                            <a href="{{ URL::previous() }}" class="btn btn-flat btn-default pull-left" title="Voltar">Voltar</a>
                             <a href="{{ route('usuarios.edit', ['id' => $user->id]) }}" class="btn btn-flat btn-warning pull-right" title="Editar Usuário">Editar Usuário</a>
                         </div>
                         <!-- /.col -->

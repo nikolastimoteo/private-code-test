@@ -36,9 +36,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin;
-
-        $groups = $admin->roles;
+        $groups = Auth::user()->admin()->roles;
 
         return view('group.index')
             ->with('groups', $groups);
@@ -72,17 +70,15 @@ class GroupController extends Controller
             'permissions'  => 'required|array|min:1',
         ], $this->messages());
 
-        $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin;
-
-        $name = Str::slug($admin->id . ' ' .$request->display_name);
-        if($admin->roles->where('name', $name)->count() > 0)
+        $name = Str::slug(Auth::user()->admin()->id . ' ' .$request->display_name);
+        if(Auth::user()->admin()->roles->where('name', $name)->count() > 0)
             return redirect()
                 ->back()
                 ->withInput()
                 ->withErrors(['display_name' => 'Nome já cadastrado.']);
         
         $group = Group::create([
-            'name' => $name,
+            'name'         => $name,
             'display_name' => $request->display_name,
         ]);
 
@@ -90,7 +86,7 @@ class GroupController extends Controller
             ->get();
         $group->syncPermissions($permissions);
 
-        $admin->assignRole($group);
+        Auth::user()->admin()->assignRole($group);
 
         return redirect()
             ->route('grupos.index');
@@ -105,9 +101,7 @@ class GroupController extends Controller
      */
     public function show($id)
     {
-        $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin;
-
-        $group = $admin->roles
+        $group = Auth::user()->admin()->roles
             ->where('id', $id)
             ->first();
         if($group)
@@ -127,9 +121,7 @@ class GroupController extends Controller
     {
         $permissions = Permission::all();
 
-        $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin;
-
-        $group = $admin->roles
+        $group = Auth::user()->admin()->roles
             ->where('id', $id)
             ->first();
         if($group)
@@ -156,15 +148,13 @@ class GroupController extends Controller
             'permissions'  => 'required|array|min:1',
         ], $this->messages());
 
-        $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin;
-
-        $group = $admin->roles
+        $group = Auth::user()->admin()->roles
             ->where('id', $id)
             ->first();
         if($group)
         {
-            $name = Str::slug($admin->id . ' ' .$request->display_name);
-            if($admin->roles->where('name', $name)->where('id', '<>', $id)->count() > 0)
+            $name = Str::slug(Auth::user()->admin()->id . ' ' .$request->display_name);
+            if(Auth::user()->admin()->roles->where('name', $name)->where('id', '<>', $id)->count() > 0)
                 return redirect()
                     ->back()
                     ->withInput()
@@ -192,9 +182,7 @@ class GroupController extends Controller
      */
     public function destroy($id)
     {
-        $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin;
-
-        $group = $admin->roles
+        $group = Auth::user()->admin()->roles
             ->where('id', $id)
             ->first();
         if($group)

@@ -32,9 +32,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $adminId = Auth::user()->isAdmin() ? Auth::user()->id : Auth::user()->users_id;
-
-        $clients = Client::where('users_id', $adminId)
+        $clients = Client::where('users_id', Auth::user()->admin()->id)
             ->get();
 
         return view('client.index')
@@ -85,10 +83,8 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        $adminId = Auth::user()->isAdmin() ? Auth::user()->id : Auth::user()->users_id;
-
         $client = Client::where('id', $id)
-                    ->where('users_id', $adminId)
+                    ->where('users_id', Auth::user()->admin()->id)
                     ->first();
         if($client)
             return view('client.show')
@@ -105,10 +101,8 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
-        $adminId = Auth::user()->isAdmin() ? Auth::user()->id : Auth::user()->users_id;
-
         $client = Client::where('id', $id)
-                    ->where('users_id', $adminId)
+                    ->where('users_id', Auth::user()->admin()->id)
                     ->first();
         if($client)
             return view('client.edit')
@@ -131,10 +125,8 @@ class ClientController extends Controller
             'email' => 'required|email|max:100',
         ], $this->messages());
 
-        $adminId = Auth::user()->isAdmin() ? Auth::user()->id : Auth::user()->users_id;
-
         $client = Client::where('id', $id)
-                    ->where('users_id', $adminId)
+                    ->where('users_id', Auth::user()->admin()->id)
                     ->first();
         if($client)
         {
@@ -156,10 +148,8 @@ class ClientController extends Controller
      */
     public function destroy($id)
     {
-        $adminId = Auth::user()->isAdmin() ? Auth::user()->id : Auth::user()->users_id;
-
         $client = Client::where('id', $id)
-                    ->where('users_id', $adminId)
+                    ->where('users_id', Auth::user()->admin()->id)
                     ->first();
         if($client)
             $client->delete();

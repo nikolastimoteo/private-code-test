@@ -43,7 +43,7 @@
                 <div class="box-footer">
                     <div class="row">
                         <div class="col-xs-12">
-                            <a href="{{ route('clientes.index') }}" class="btn btn-flat btn-default pull-left" title="Voltar">Voltar</a>
+                            <a href="{{ URL::previous() }}" class="btn btn-flat btn-default pull-left" title="Voltar">Voltar</a>
                             <a href="{{ route('clientes.edit', ['id' => $client->id]) }}" class="btn btn-flat btn-warning pull-right" title="Editar Cliente">Editar Cliente</a>
                         </div>
                         <!-- /.col -->

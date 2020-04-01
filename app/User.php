@@ -54,14 +54,27 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the admin of the user.
+     * Get the admin of the user (RELATIONSHIP).
+     * 
+     * @author Níkolas Timóteo <nikolas@dzp.net.br>
+     * @return App\User
+     */
+    public function myAdmin()
+    {
+        return $this->belongsTo('App\User', 'users_id');
+    }
+
+    /**
+     * Get the admin user (NOT A RELATIONSHIP).
      * 
      * @author Níkolas Timóteo <nikolas@dzp.net.br>
      * @return App\User
      */
     public function admin()
     {
-        return $this->belongsTo('App\User', 'users_id');
+        if($this->isAdmin())
+            return $this;
+        return $this->myAdmin;
     }
 
     /**

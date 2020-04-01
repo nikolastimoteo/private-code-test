@@ -51,9 +51,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin;
-
-        $groups = $admin->roles;
+        $groups = Auth::user()->admin()->roles;
 
         return view('user.create')
             ->with('groups', $groups);
@@ -85,8 +83,7 @@ class UserController extends Controller
 
         if($request->exists('groups') && !empty($request->groups))
         {
-            $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin;
-            $groups = $admin->roles->whereIn('id', $request->groups);
+            $groups = Auth::user()->admin()->roles->whereIn('id', $request->groups);
 
             $user->assignRole($groups);
         }
@@ -122,9 +119,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin;
-
-        $groups = $admin->roles;
+        $groups = Auth::user()->admin()->roles;
 
         $user = User::where('id', $id)
                     ->where('users_id', Auth::user()->id)
@@ -161,8 +156,7 @@ class UserController extends Controller
             $user->name = $request->name;
             $user->save();
             
-            $admin = Auth::user()->isAdmin() ? Auth::user() : Auth::user()->admin;
-            $groups = $admin->roles->whereIn('id', $request->groups);
+            $groups = Auth::user()->admin()->roles->whereIn('id', $request->groups);
 
             $user->syncRoles($groups);
         }
