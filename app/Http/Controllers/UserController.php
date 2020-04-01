@@ -156,9 +156,16 @@ class UserController extends Controller
             $user->name = $request->name;
             $user->save();
             
-            $groups = Auth::user()->admin()->roles->whereIn('id', $request->groups);
+            // for the activity log
+            $oldGroupNamesArray = $user->roles->pluck('display_name')->toArray();
 
+            $groups = Auth::user()->admin()->roles->whereIn('id', $request->groups);
             $user->syncRoles($groups);
+
+            // for the activity log
+            $newGroupNamesArray = $user->roles->pluck('display_name')->toArray();
+
+            log_on_changed_relationships($oldGroupNamesArray, $newGroupNamesArray, 'Edição de Usuário', 'App\User', $user->id, Auth::user()->id);
         }
 
         return redirect()

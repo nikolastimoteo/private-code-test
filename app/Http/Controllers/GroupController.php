@@ -164,9 +164,17 @@ class GroupController extends Controller
             $group->display_name = $request->display_name;
             $group->save();
 
+            // for the activity log
+            $oldPermissionNamesArray = $group->permissions->pluck('display_name')->toArray();
+
             $permissions = Permission::whereIn('id', $request->permissions)
                 ->get();
             $group->syncPermissions($permissions);
+
+            // for the activity log
+            $newPermissionNamesArray = $group->permissions->pluck('display_name')->toArray();
+
+            log_on_changed_relationships($oldPermissionNamesArray, $newPermissionNamesArray, 'Edição de Grupo', 'App\Group', $group->id, Auth::user()->id);
         }
 
         return redirect()
