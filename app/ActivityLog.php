@@ -24,9 +24,15 @@ class ActivityLog extends Model
      */
     public function user()
     {
-        return $this->belongsTo('App\User', 'users_id');
+        return $this->belongsTo('App\User', 'users_id')->withTrashed();
     }
 
+    /**
+     * Get the object related to the activity log.
+     * 
+     * @author Níkolas Timóteo <nikolas@dzp.net.br>
+     * @return Illuminate\Database\Eloquent\Model
+     */
     public function modelObject()
     {
         return $this->model::withTrashed()->find($this->model_id);

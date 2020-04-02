@@ -78,7 +78,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Get all the users from the admin.
+     * Get all the users of the admin.
      * 
      * @author Níkolas Timóteo <nikolas@nikolastps.hotmail.com>
      * @return Collection<App\User>
@@ -86,6 +86,17 @@ class User extends Authenticatable
     public function users()
     {
         return $this->hasMany('App\User', 'users_id');
+    }
+
+    /**
+     * Get all the users of the admin (WITH TRASHED).
+     * 
+     * @author Níkolas Timóteo <nikolas@nikolastps.hotmail.com>
+     * @return Collection<App\User>
+     */
+    public function usersWithTrashed()
+    {
+        return $this->hasMany('App\User', 'users_id')->withTrashed();
     }
 
     /**

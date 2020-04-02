@@ -4,7 +4,7 @@
 <p>Acesse o diretório em que deseja baixar o projeto e execute o comando:</p>
 <pre><code>git clone https://github.com/nikolastimoteo/private-code-test.git</code></pre>
 
-<p>Crie uma cópia do arquivo **.env.example** com o nome **.env** e altere as variáveis de ambiente abaixo, no novo arquivo, para as configurações do seu banco de dados:</p>
+<p>Acesse o diretório do projeto e crie uma cópia do arquivo <b>.env.example</b> com o nome <b>.env</b> e altere as variáveis de ambiente abaixo, no novo arquivo, para as configurações do seu banco de dados:</p>
 <pre><code>DB_CONNECTION=mysql
 DB_HOST=
 DB_PORT=

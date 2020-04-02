@@ -18,7 +18,7 @@ class ActivityLogController extends Controller
     {
         if(Auth::user()->can('view-log'))
         {
-            $usersArray = Auth::user()->admin()->users->pluck('id')->toArray();
+            $usersArray = Auth::user()->admin()->usersWithTrashed->pluck('id')->toArray();
             $usersArray[] = Auth::user()->admin()->id;
             
             $logs = ActivityLog::whereIn('users_id', $usersArray)

@@ -36,8 +36,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::where('users_id', Auth::user()->id)
-            ->get();
+        $users = Auth::user()->users;
 
         return view('user.index')
             ->with('users', $users);
@@ -101,8 +100,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::where('id', $id)
-                    ->where('users_id', Auth::user()->id)
+        $user = Auth::user()->users->where('id', $id)
                     ->first();
         if($user)
             return view('user.show')
@@ -121,8 +119,7 @@ class UserController extends Controller
     {
         $groups = Auth::user()->admin()->roles;
 
-        $user = User::where('id', $id)
-                    ->where('users_id', Auth::user()->id)
+        $user = Auth::user()->users->where('id', $id)
                     ->first();
         if($user)
             return view('user.edit')
@@ -148,8 +145,7 @@ class UserController extends Controller
             'groups' => 'sometimes|array',
         ], $this->messages());
 
-        $user = User::where('id', $id)
-                    ->where('users_id', Auth::user()->id)
+        $user = Auth::user()->users->where('id', $id)
                     ->first();
         if($user)
         {
@@ -181,8 +177,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::where('id', $id)
-                    ->where('users_id', Auth::user()->id)
+        $user = Auth::user()->users->where('id', $id)
                     ->first();
         if($user)
             $user->delete();

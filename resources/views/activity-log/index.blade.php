@@ -39,7 +39,7 @@
                                             <td style="vertical-align: middle">{{ date('d/m/Y à\s H:i:s', strtotime($log->created_at)) }}</td>
                                             <td style="vertical-align: middle">{{ $log->type }}</td>
                                             <td style="vertical-align: middle">{{ $log->modelObject() }}</td>
-                                            <td style="vertical-align: middle">{{ $log->user->name }}</td>
+                                            <td style="vertical-align: middle">{{ $log->user }}</td>
                                             <td style="vertical-align: middle">{{ $log->description }}</td>
                                         </tr>
                                     @endforeach
@@ -77,7 +77,7 @@
                                                 <td style="vertical-align: middle">{{ date('d/m/Y à\s H:i:s', strtotime($log->created_at)) }}</td>
                                                 <td style="vertical-align: middle">{{ $log->type }}</td>
                                                 <td style="vertical-align: middle">{{ $log->modelObject() }}</td>
-                                                <td style="vertical-align: middle">{{ $log->user->name }}</td>
+                                                <td style="vertical-align: middle">{{ $log->user }}</td>
                                                 <td style="vertical-align: middle">{{ $log->description }}</td>
                                             </tr>
                                         @endforeach
